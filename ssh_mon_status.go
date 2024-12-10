@@ -39,6 +39,6 @@ func check_ssh_status() {
 		fmt.Printf("Command failed: %v\n", err)
 	} else {
 		ssh_mon_status.WithLabelValues(host_ip, "up").Set(duration)
-		fmt.Printf("Command response time: %.2f seconds\n", duration)
+		// fmt.Printf("Command response time: %.2f seconds\n", duration)
 	}
 }
