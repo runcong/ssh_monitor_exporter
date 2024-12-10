@@ -11,7 +11,7 @@ import (
 var ssh_mon_status = prometheus.NewGaugeVec(prometheus.GaugeOpts{
 	Name: "ssh_mon_status",
 	Help: "SSH Monitor Status and response time",
-}, []string{"sshd_host", "status"})
+}, []string{"sshd_host"})
 
 func measureCommandResponseTime(command string, args ...string) (float64, error) {
 	startTime := time.Now()
@@ -35,10 +35,10 @@ func check_ssh_status() {
 
 	duration, err := measureCommandResponseTime("ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=30", ssh_id, "exit")
 	if err != nil {
-		ssh_mon_status.WithLabelValues(host_ip, "down").Set(-1)
+		ssh_mon_status.WithLabelValues(host_ip).Set(-1)
 		fmt.Printf("Command failed: %v\n", err)
 	} else {
-		ssh_mon_status.WithLabelValues(host_ip, "up").Set(duration)
+		ssh_mon_status.WithLabelValues(host_ip).Set(duration)
 		// fmt.Printf("Command response time: %.2f seconds\n", duration)
 	}
 }
