@@ -11,7 +11,7 @@ import (
 
 var listenAddress = flag.String(
 	"listen-address",
-	":9188",
+	":8080",
 	"The address to listen on for HTTP requests.")
 
 var reg = prometheus.NewRegistry()
